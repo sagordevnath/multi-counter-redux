@@ -9,6 +9,40 @@ const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const RESET_COUNTERS = "RESET_COUNTERS";
 
+//Action Creators
+const addCounterAction = () => {
+    return {
+      type: ADD_COUNTER,
+      payload: {
+        counterID: store.getState().totalCounters,
+        value: 0,
+        incrementBy: Math.floor(Math.random() * 10) + 1,
+        decrementBy: Math.floor(Math.random() * 10) + 1,
+      },
+    };
+  };
+  const resetCounterAction = () => {
+    return {
+      type: RESET_COUNTERS,
+    };
+  };
+  const incrementCounterAction = (counterID) => {
+    return {
+      type: INCREMENT,
+      payload: {
+        id: counterID,
+      },
+    };
+  };
+  const decrementCounterAction = (counterID) => {
+    return {
+      type: DECREMENT,
+      payload: {
+        id: counterID,
+      },
+    };
+  };
+
 // Initial State
 let initialState = {
     counters: [
