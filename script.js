@@ -146,6 +146,45 @@ const decrementCounterAction = (counterID) => {
   };
 };
 
+//Callback Function to Reset Counters to 0
+const resetAllCounter = () => {
+    countersContainer.innerHTML = "";
+    store.getState().counters.map((counter) => {
+      const newCounter = document.createElement("div");
+      newCounter.innerHTML = `
+     <div
+           
+            class="p-4 h-auto flex flex-col items-center justify-center space-y-5 bg-white rounded shadow"
+          >
+            <div 
+              id="${counter.counterID + 1}"
+            class="text-2xl font-semibold">
+              ${counter.value}
+            </div>
+            <div class="flex space-x-3">
+              <button
+                  id="increment-${counter.counterID}"
+                  onclick="increment('${counter.counterID + 1}', '${
+        counter.incrementBy
+      }')"
+               class="bg-indigo-400 text-white px-3 py-2 rounded shadow">
+                Increment By ${counter.incrementBy}
+              <button 
+                  id="decrement-${initialState.counters + 1}"
+                  onclick="decrement('${counter.counterID + 1}', '${
+        counter.decrementBy
+      }')"
+              class="bg-red-400 text-white px-3 py-2 rounded shadow">
+                Decrement By ${counter.decrementBy}
+              </button>
+            </div>
+          </div>
+      `;
+      countersContainer.appendChild(newCounter);
+    });
+  };
+  
+
 //Click Handlers for buttons
 addCounter.addEventListener("click", () => {
     store.dispatch(addCounterAction());
