@@ -1,3 +1,14 @@
+//Capturing DOM Elements
+const countersContainer = document.getElementById("counters-container");
+const addCounter = document.getElementById("add-counter");
+const resetCounter = document.getElementById("reset-counter");
+
+//Action Identifiers
+const ADD_COUNTER = "ADD_COUNTER";
+const INCREMENT = "INCREMENT";
+const DECREMENT = "DECREMENT";
+const RESET_COUNTERS = "RESET_COUNTERS";
+
 // Initial State
 let initialState = {
     counters: [
@@ -66,3 +77,32 @@ function counterReducer(state = initialState, action) {
   
   // create store with reducer
 const store = Redux.createStore(counterReducer);
+
+//Click Handlers for buttons
+addCounter.addEventListener("click", () => {
+    store.dispatch(addCounterAction());
+    newCounter();
+  });
+  
+  resetCounter.addEventListener("click", () => {
+    store.dispatch(resetCounterAction());
+    resetAllCounter();
+  });
+  
+  function increment(counterID, incrementBy) {
+    store.dispatch(incrementCounterAction(counterID));
+    document.getElementById(counterID).innerText =
+      Number(document.getElementById(counterID).innerText) + Number(incrementBy);
+  }
+  
+  function decrement(counterID, decrementBy) {
+    store.dispatch(decrementCounterAction(counterID));
+    document.getElementById(counterID).innerText =
+      Number(document.getElementById(counterID).innerText) - Number(decrementBy);
+  }
+
+  //Subscribe to store changes
+store.subscribe(() => {
+    console.log(store.getState());
+  });
+  
